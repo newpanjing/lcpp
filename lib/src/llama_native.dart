@@ -179,8 +179,12 @@ class LlamaNative implements Llama {
       throw Exception('Failed to apply template');
     }
 
-    final prompt =
-        formatted.cast<Utf8>().toDartString().substring(_contextLength);
+   
+     var r= formatted.cast<Utf8>().toDartString();
+    if(r.length>=_contextLength){
+      r=r.substring(_contextLength);
+    }
+    final prompt =r;
     calloc.free(formatted);
 
     final vocab = Llama.lib.llama_model_get_vocab(_model);
